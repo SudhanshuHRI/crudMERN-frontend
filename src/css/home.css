@@ -1,0 +1,27 @@
+.homeContainer {
+    
+    background-image: url('../../public/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+td{
+    background: transparent !important;
+    color: white !important;
+    border-bottom: none !important;
+    font-size: 17px;
+}
+.addButton{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userTable{
+    font-size: 20px;
+}
+.userImg{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}

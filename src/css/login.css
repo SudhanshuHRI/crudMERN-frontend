@@ -1,0 +1,102 @@
+/* .LoginCont{
+    min-height: 300px;
+} */
+.modal-content {
+   min-height: 500px;
+}
+
+.LoginSide2>div {
+   margin: 40px 0;
+}
+
+.loginImg {
+   margin-top: 200px;
+}
+
+.LoginSide1 {
+   padding: 50px !important;
+   background-color: cornflowerblue;
+   color: white;
+   border-top-left-radius: 7px;
+   border-bottom-left-radius: 7px;
+}
+
+p {
+   margin: 0 !important;
+}
+
+.LoginSide1>div>p {
+   font-weight: 300;
+}
+
+.LoginSide2>div>p {
+   font-weight: 500;
+}
+
+.SocislMediaIcons {
+
+   text-align: center;
+}
+
+.SocislMediaIcons>span {
+   margin: 10px;
+   padding: 10px;
+   color: white;
+   font-size: 20px;
+   cursor: pointer;
+}
+
+.SocislMediaIcons>span>svg {
+   margin-bottom: 5px;
+}
+
+.loginHr>span>hr {
+   width: 90px;
+}
+
+.loginHr {
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+}
+
+.loginInputs>input {
+   width: 100%;
+   margin: 10px 0;
+   padding: 5px;
+   border: none;
+   border-bottom: 2px solid gray;
+}
+
+.loginInputs>input:focus {
+
+   outline: none;
+   /* Removes the outline */
+   box-shadow: none;
+   border-bottom: 2px solid cornflowerblue;
+}
+
+.loginForgotLinkCont {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.LoginSide2>button {
+   width: 100%;
+   background-color: cornflowerblue;
+   color: white;
+}
+
+.LoginSide2>button:hover {
+   background-color: rgb(36, 86, 179);
+   color: white;
+}
+
+.LoginSide2>button:active {
+   background-color: rgb(126, 147, 185);
+   color: white;
+}
+.show{
+   padding-left:0 !important;
+}
