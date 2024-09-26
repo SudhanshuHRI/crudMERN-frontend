@@ -1,0 +1,12 @@
+.inputDiv{
+    margin-top: 0 !important;
+}
+.registerButton{
+    width: 100%;
+    background-color: #6595ED !important;
+    color:white !important;
+}
+.registerButton:hover {
+    background-color: rgb(36, 86, 179) !important;
+    color: white !important;
+ }
