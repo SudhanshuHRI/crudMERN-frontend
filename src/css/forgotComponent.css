@@ -1,0 +1,10 @@
+.forgotContainer{
+   margin-top:20%;
+    
+}
+.returnLoginLink{
+    position: relative;
+    bottom:0;
+    height: 150px;
+    align-items: end;
+}
