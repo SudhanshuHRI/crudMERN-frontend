@@ -1,22 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css'
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { FaFacebookF } from "react-icons/fa6";
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
 import Form from 'react-bootstrap/Form';
-import { getData, postData } from '../helpers/helper';
+import { postData } from '../helpers/helper';
 
 const LoginComponent = ({ switchForm }) => {
+    // State declearations
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState("");
 
+    //assigning hook to variabale
     const navigate = useNavigate();
 
-
+    //functions
     async function loginCheck() {
 
         if (email == "") {
@@ -36,6 +32,13 @@ const LoginComponent = ({ switchForm }) => {
         }
 
     }
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            loginCheck();
+        }
+    };
+
     return (
         <>
             <div className='loginHr'>
@@ -46,7 +49,7 @@ const LoginComponent = ({ switchForm }) => {
             </div>
             <div className='loginInputs'>
                 <input type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
             </div>
 
             <div className='loginForgotLinkCont'>
@@ -57,7 +60,7 @@ const LoginComponent = ({ switchForm }) => {
                 <a href='#' onClick={() => switchForm("forgot")}>Forgot Password? </a>
 
             </div>
-            <button className='btn' onClick={() => loginCheck()}>Login</button>
+            <button className='btn'  onClick={() => loginCheck()}>Login</button>
             <div className='d-flex justify-content-center'>
                 <span>New to crud?</span>
                 <a href='#' className='ms-1' onClick={() => switchForm("register")}>Create an account</a>

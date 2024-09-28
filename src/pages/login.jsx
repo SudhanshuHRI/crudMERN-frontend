@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css'
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FaFacebookF } from "react-icons/fa6";
@@ -14,26 +14,85 @@ import RegisterComponent from '../components/registerComponent';
 import FrogotComponent from '../components/forgotComponent';
 import VarifyOTP from '../components/verifyOTPComponent';
 
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, GoogleAuthProvider,FacebookAuthProvider, signInWithPopup } from "firebase/auth"
+
 const Login = () => {
 
     const [lgShow, setLgShow] = useState(true)
     const [activeSection, setActiveSection] = useState("login")
-    const [hideSocialMedia,setSocialMedia] = useState("d-block")
+    const [hideSocialMedia, setSocialMedia] = useState("d-block")
 
-    useEffect(()=>{
-        if(activeSection=="forgot" || activeSection=="verifyotp"){
+    useEffect(() => {
+        if (activeSection == "forgot" || activeSection == "verifyotp") {
             setSocialMedia("d-none")
-        }else{
+        } else {
             setSocialMedia("d-block")
         }
 
-    },[activeSection])
+    }, [activeSection])
 
     const switchForm = (form) => {
         setActiveSection(form)
     }
 
+    const firebaseConfig = {
+        apiKey: "AIzaSyBlUmdFsR7_5eKYrHUNTTWxjsjiEFyTGn8",
+        authDomain: "merncrud-c86d2.firebaseapp.com",
+        projectId: "merncrud-c86d2",
+        storageBucket: "merncrud-c86d2.appspot.com",
+        messagingSenderId: "1010688924377",
+        appId: "1:1010688924377:web:3c5f20b7edd092b900bcc8",
+        measurementId: "G-89BKQZ1M07"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+
+
+    const handleGoogleLogin = async () => {
+        alert("sdfds")
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+
+            console.log("User Info:", user);  // User info (email, name, etc.)
+            console.log("Token:", token);      // The OAuth token
+            // You can now send the token to your backend or manage the user session
+        } catch (error) {
+            console.error("Error during Google login", error);
+        }
+    };
+
+    const handleFacebookLogin = async () => {
+        const provider = new FacebookAuthProvider();
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const credential = FacebookAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          const user = result.user;
     
+          console.log("User Info:", user);  // User info (email, name, etc.)
+          console.log("Token:", token);      // The OAuth token
+        } catch (error) {
+          console.error("Error during Facebook login", error);
+        }
+      };
+
+
+    const test = async () => {
+        const resp = await getData("/api/getUsers")
+        console.log("Testing response:", resp)
+    }
+    test();
+
+
 
     return (
         <div className='MainCont'>
@@ -58,16 +117,16 @@ const Login = () => {
                             </div>
                         </div>
                         <div className='col-12 col-xl-7 LoginSide2'>
-                            <div className={ `text-center ${hideSocialMedia}`}>
+                            <div className={`text-center ${hideSocialMedia}`}>
                                 <p className='h5'>Login with Social Profile</p>
                             </div>
                             <div className={`SocislMediaIcons ${hideSocialMedia}`}>
-                                <span style={{ backgroundColor: "#1874EB" }}><FaFacebookF /></span>
+                                <span style={{ backgroundColor: "#1874EB" }}><FaFacebookF onClick={handleFacebookLogin}/></span>
                                 <span style={{ backgroundColor: "#00ACEE" }}><FaTwitter /></span>
-                                <span style={{ backgroundColor: "#DC473A" }}><FaGoogle /></span>
+                                <span style={{ backgroundColor: "#DC473A" }}><FaGoogle onClick={handleGoogleLogin} /></span>
                                 <span style={{ backgroundColor: "#1c7eAD" }}><FaLinkedinIn /></span>
                             </div>
-                          
+
 
                             {activeSection === "login" && <LoginComponent switchForm={switchForm} />}
                             {activeSection === "register" && <RegisterComponent switchForm={switchForm} />}
