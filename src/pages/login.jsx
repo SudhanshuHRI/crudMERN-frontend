@@ -16,7 +16,7 @@ import VarifyOTP from '../components/verifyOTPComponent';
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, GoogleAuthProvider,FacebookAuthProvider, signInWithPopup } from "firebase/auth"
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Login = () => {
 
@@ -54,36 +54,47 @@ const Login = () => {
 
 
     const handleGoogleLogin = async () => {
-        alert("sdfds")
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider);
             const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
+            const token = credential.idToken;
             const user = result.user;
 
             console.log("User Info:", user);  // User info (email, name, etc.)
             console.log("Token:", token);      // The OAuth token
-            // You can now send the token to your backend or manage the user session
+
+            console.log("credential",credential)
+            
+            if (token) {
+                const resp = await postData("/api/loginWithGoogle", { token: token, userData: user });
+                console.log("login with google resp:", resp);
+            }
         } catch (error) {
             console.error("Error during Google login", error);
         }
     };
 
-    const handleFacebookLogin = async () => {
-        const provider = new FacebookAuthProvider();
-        try {
-          const result = await signInWithPopup(auth, provider);
-          const credential = FacebookAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          const user = result.user;
-    
-          console.log("User Info:", user);  // User info (email, name, etc.)
-          console.log("Token:", token);      // The OAuth token
-        } catch (error) {
-          console.error("Error during Facebook login", error);
-        }
-      };
+    // const handleFacebookLogin = async () => {
+    //     const provider = new FacebookAuthProvider();
+    //     try {
+
+
+    //         const result = await signInWithPopup(auth, provider);
+    //         alert("hello")
+    //         console.log("result:",result)
+    //         const credential = FacebookAuthProvider.credentialFromResult(result);
+    //         const token = credential.accessToken;
+    //         const user = result.user;
+
+
+
+    //         console.log("User Info:", user);  // User info (email, name, etc.)
+    //         console.log("Token:", token);      // The OAuth token
+    //     } catch (error) {
+    //         console.error("Error during Facebook login", error);
+    //     }
+    // };
 
 
     const test = async () => {
@@ -121,10 +132,10 @@ const Login = () => {
                                 <p className='h5'>Login with Social Profile</p>
                             </div>
                             <div className={`SocislMediaIcons ${hideSocialMedia}`}>
-                                <span style={{ backgroundColor: "#1874EB" }}><FaFacebookF onClick={handleFacebookLogin}/></span>
-                                <span style={{ backgroundColor: "#00ACEE" }}><FaTwitter /></span>
-                                <span style={{ backgroundColor: "#DC473A" }}><FaGoogle onClick={handleGoogleLogin} /></span>
-                                <span style={{ backgroundColor: "#1c7eAD" }}><FaLinkedinIn /></span>
+                                {/* <span style={{ backgroundColor: "#1874EB" }}><FaFacebookF onClick={handleFacebookLogin} /></span>
+                                <span style={{ backgroundColor: "#00ACEE" }}><FaTwitter /></span> */}
+                                <span ><img src='/google.png' width={250} onClick={handleGoogleLogin} /></span>
+                                {/* <span style={{ backgroundColor: "#1c7eAD" }}><FaLinkedinIn /></span> */}
                             </div>
 
 
