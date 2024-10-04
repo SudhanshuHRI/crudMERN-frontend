@@ -24,6 +24,8 @@ const Login = () => {
     const [activeSection, setActiveSection] = useState("login")
     const [hideSocialMedia, setSocialMedia] = useState("d-block")
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (activeSection == "forgot" || activeSection == "verifyotp") {
             setSocialMedia("d-none")
@@ -61,14 +63,17 @@ const Login = () => {
             const token = credential.idToken;
             const user = result.user;
 
-            console.log("User Info:", user);  // User info (email, name, etc.)
-            console.log("Token:", token);      // The OAuth token
-
-            console.log("credential",credential)
+            //console.log("User Info:", user);  // User info (email, name, etc.)
+           // console.log("Token:", token);      // The OAuth token
+           // console.log("credential",credential)
             
             if (token) {
                 const resp = await postData("/api/loginWithGoogle", { token: token, userData: user });
-                console.log("login with google resp:", resp);
+                if(resp.status==200){
+                    alert(`Welcome ${user.displayName}`)
+                    navigate('/home')
+
+                }
             }
         } catch (error) {
             console.error("Error during Google login", error);
@@ -100,6 +105,7 @@ const Login = () => {
     const test = async () => {
         const resp = await getData("/api/getUsers")
         console.log("Testing response:", resp)
+        
     }
     test();
 

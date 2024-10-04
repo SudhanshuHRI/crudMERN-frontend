@@ -27,10 +27,10 @@ const LoginComponent = ({ switchForm }) => {
 
             const data = await postData("/api/login", dataObject);
 
-            console.log("Login response:", data)
-            data.status == 200 ? navigate('/home') : alert(data.error);
+            console.log("Login response:", data);
+            data.status == 200 ? navigate('/home') :
+                data.error == 'Login failed: data and hash arguments required' ? alert(" You are registered through google!!") : alert(data.error);
         }
-
     }
 
     const handleKeyDown = (event) => {
@@ -49,7 +49,7 @@ const LoginComponent = ({ switchForm }) => {
             </div>
             <div className='loginInputs'>
                 <input type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
+                <input type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown} />
             </div>
 
             <div className='loginForgotLinkCont'>
@@ -60,7 +60,7 @@ const LoginComponent = ({ switchForm }) => {
                 <a href='#' onClick={() => switchForm("forgot")}>Forgot Password? </a>
 
             </div>
-            <button className='btn'  onClick={() => loginCheck()}>Login</button>
+            <button className='btn' onClick={() => loginCheck()}>Login</button>
             <div className='d-flex justify-content-center'>
                 <span>New to crud?</span>
                 <a href='#' className='ms-1' onClick={() => switchForm("register")}>Create an account</a>
