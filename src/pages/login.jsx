@@ -53,8 +53,6 @@ const Login = () => {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-
-
     const handleGoogleLogin = async () => {
         const provider = new GoogleAuthProvider();
         try {
@@ -63,53 +61,22 @@ const Login = () => {
             const token = credential.idToken;
             const user = result.user;
 
-            //console.log("User Info:", user);  // User info (email, name, etc.)
-           // console.log("Token:", token);      // The OAuth token
-           // console.log("credential",credential)
-            
+            console.log("User Info:", user);  // User info (email, name, etc.)
+            // console.log("Token:", token);      // The OAuth token
+            // console.log("credential",credential)
+
             if (token) {
                 const resp = await postData("/api/loginWithGoogle", { token: token, userData: user });
-                if(resp.status==200){
+                if (resp.status == 200) {
                     alert(`Welcome ${user.displayName}`)
+                    console.log("login with google resp:", resp)
                     navigate('/home')
-
                 }
             }
         } catch (error) {
             console.error("Error during Google login", error);
         }
     };
-
-    // const handleFacebookLogin = async () => {
-    //     const provider = new FacebookAuthProvider();
-    //     try {
-
-
-    //         const result = await signInWithPopup(auth, provider);
-    //         alert("hello")
-    //         console.log("result:",result)
-    //         const credential = FacebookAuthProvider.credentialFromResult(result);
-    //         const token = credential.accessToken;
-    //         const user = result.user;
-
-
-
-    //         console.log("User Info:", user);  // User info (email, name, etc.)
-    //         console.log("Token:", token);      // The OAuth token
-    //     } catch (error) {
-    //         console.error("Error during Facebook login", error);
-    //     }
-    // };
-
-
-    const test = async () => {
-        const resp = await getData("/api/getUsers")
-        console.log("Testing response:", resp)
-        
-    }
-    test();
-
-
 
     return (
         <div className='MainCont'>
@@ -143,13 +110,10 @@ const Login = () => {
                                 <span ><img src='/google.png' width={250} onClick={handleGoogleLogin} /></span>
                                 {/* <span style={{ backgroundColor: "#1c7eAD" }}><FaLinkedinIn /></span> */}
                             </div>
-
-
                             {activeSection === "login" && <LoginComponent switchForm={switchForm} />}
                             {activeSection === "register" && <RegisterComponent switchForm={switchForm} />}
                             {activeSection === "forgot" && <FrogotComponent switchForm={switchForm} />}
                             {activeSection === "verifyotp" && <VarifyOTP switchForm={switchForm} />}
-
                         </div>
                     </div>
                 </div>

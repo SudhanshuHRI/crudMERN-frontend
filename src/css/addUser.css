@@ -9,14 +9,14 @@
 }
 
 .form_wrapper {
-    background: #1A2226;
+    background: lightgrey;
     width: 50%;
     max-width: 100%;
     box-sizing: border-box;
     padding: 25px;
     position: relative;
     z-index: 1;
-    border-top: 5px solid #1A2226;
+    /* border-top: 5px solid #1A2226; */
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
@@ -333,14 +333,12 @@
 }
 
 .addUserContainer {
-    background-image: url('../../public/loginBackground.gif');
+    /* background-image: url('../../public/loginBackground.gif');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   
 }
 
 .input_field > span {
@@ -349,4 +347,8 @@
 
 .form-label {
     color: white !important;
+}
+.addUserInputField > label{
+    color:black !important;
+    font-size: 1rem !important;
 }

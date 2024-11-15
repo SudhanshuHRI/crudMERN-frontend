@@ -26,7 +26,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
-const AddUser = () => {
+const UpdateUser = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('');
@@ -35,6 +35,7 @@ const AddUser = () => {
     const [photo, setPhoto] = useState(null);
     const [password, setPassword] = useState('')
     const [userDropDown, setUserDropDown] = useState("d-none")
+    const [updateUserId, setUpdateUserId] = useState('')
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -44,6 +45,7 @@ const AddUser = () => {
         if (location.state != null) {
             const userId = location.state?.id;
             updatingUser(userId)
+            setUpdateUserId(userId)
         }
     }, [location])
 
@@ -57,81 +59,15 @@ const AddUser = () => {
         setCity(user.city)
         setEmail(user.email)
         setPhone(user.phone)
-        //setPassword(user.password)
-        //setPhoto(user.photo)
+        setPassword(user.password)
+        setPhoto(user.photo)
 
 
 
 
     }
 
-    const addUser = async (e) => {
-        e.preventDefault();
-        if (firstName == '' || lastName == "" || email == "" || phone == "" || city == "" || photo == "" || password == "") {
-            alert("All fields are required!!")
-        }
-        else {
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (emailRegex.test(email)) {
-                const userData = new FormData();
-                userData.append("firstName", firstName);
-                userData.append("lastName", lastName);
-                userData.append("email", email);
-                userData.append("phone", phone);
-                userData.append("city", city);
-                userData.append("photo", photo);
-                userData.append("password", password);
-                // for (let [key, value] of userData.entries()) {
-                //     console.log(`${key}: ${value}`);
-                // }
-
-                // const file = userData.get('photo');
-
-                // if (file) {
-                //     console.log('File Name:', file.name);
-                //     console.log('File Size:', file.size);
-                //     console.log('File Type:', file.type);
-                // }
-                try {
-                    // Send the FormData object to the backend
-                    const resp = await fetch(`http://localhost:5000/api/register`, {
-                        method: "POST",
-                        body: userData, // FormData automatically sets the correct headers
-                        credentials: 'include',
-                    });
-                    // Check if the response is okay
-                    if (!resp.ok) {
-                        console.log("error:", resp)
-                        alert("unable to register user. Retry!!")
-
-                    }
-                    // Parse the JSON response
-                    const data = await resp.json();
-
-                    if (data.status == 201) {
-                        alert("User registered successfully")
-                        setFirstName("")
-                        setLastName("")
-                        setCity("")
-                        setEmail("")
-                        setPassword("")
-                        setPhone("")
-                        setPhoto(null)
-                    }
-
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            } else {
-                alert("Plese fill valid email")
-            }
-
-        }
-
-
-    };
 
     const handleLogout = async () => {
 
@@ -148,26 +84,43 @@ const AddUser = () => {
 
     }
 
-    const updateUser = async () => {
+    const updateUser = async (e) => {
+        e.preventDefault();
+        // console.log("firstName",firstName)
+        // console.log("lastName",lastName)
+        // console.log("email",email)
+        // console.log("phone",phone)
+        // console.log("city",city)
+        // console.log("password",password)
+        // console.log("photo",photo)
+
+
+        const UpdatedData = new FormData;
+
+        UpdatedData.append("firstName", firstName);
+        UpdatedData.append("lastName", lastName);
+        UpdatedData.append("email", email);
+        UpdatedData.append("phone", phone);
+        UpdatedData.append("city", city);
+        UpdatedData.append("photo", photo);
+        UpdatedData.append("password", password);
+
+
+        // for (let [key, value] of UpdatedData.entries()) {
+        //     console.log(`${key}: ${value}`);
+        // }
+
+        const resp = await updateData(`/api/UpdateUser/${updateUserId}`, UpdatedData)
         
 
-        alert("hello")
-        const userData = new FormData();
-        userData.append("firstName", firstName);
-        userData.append("lastName", lastName);
-        userData.append("email", email);
-        userData.append("phone", phone);
-        userData.append("city", city);
-        userData.append("photo", photo);
-        userData.append("password", password);
+        if(resp.status==200){
+            alert("User Updated!!")
+        }
 
-        const resp = await updateData(`/api/UpdateUser/${location.state.id}`, userData)
-        alert("done")
-
-        console.log("resp:", resp)
+       
     }
 
-  
+
 
     return (
         <div className='addUserContainer'>
@@ -252,8 +205,8 @@ const AddUser = () => {
                                 <Button variant="dark" className='' onClick={() => navigate('/home')}>
                                     Back
                                 </Button>
-                                <Button variant="dark" type="submit" className='ms-2' onClick={addUser}>
-                                    Add User
+                                <Button variant="dark" type="submit" className='ms-2' onClick={updateUser}>
+                                    Update User
                                 </Button>
                             </div>
                         </Form>
@@ -265,4 +218,4 @@ const AddUser = () => {
     );
 }
 
-export default AddUser;
+export default UpdateUser;

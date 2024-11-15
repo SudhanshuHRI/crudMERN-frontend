@@ -9,6 +9,7 @@ export async function getData(route) {
 
 export async function postData(route, dataObject) {
 
+
     const resp = await fetch(`http://localhost:5000${route}`, {
         method: "POST",
         headers: {
@@ -25,13 +26,12 @@ export async function postData(route, dataObject) {
 
 export async function updateData(route, dataObject) {
 
-
     const resp = await fetch(`http://localhost:5000${route}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataObject),
+        // headers: {
+        //     "Content-Type": "application/json",
+        // },
+        body: dataObject,
         credentials: 'include'
     });
     const data = await resp.json();
