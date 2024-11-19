@@ -28,8 +28,19 @@ const LoginComponent = ({ switchForm }) => {
             const data = await postData("/api/login", dataObject);
 
             console.log("Login response:", data);
-            data.status == 200 ? navigate('/home') :
+
+            if (data.status == 200) {
+                alert(`Welcome ${data.user.firstName}`)
+                localStorage.setItem("userPhoto",data.user.photo)
+                localStorage.setItem("userName",data.user.firstName) 
+                navigate('/home')
+            
+
+            } else {
                 data.error == 'Login failed: data and hash arguments required' ? alert(" You are registered through google!!") : alert(data.error);
+            }
+
+
         }
     }
 

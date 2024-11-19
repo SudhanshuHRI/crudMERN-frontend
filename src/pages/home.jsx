@@ -23,6 +23,8 @@ const Home = () => {
   const [userDropDown, setUserDropDown] = useState("d-none")
   const [refresh, setRefresh] = useState('')
   const [loginUserPhoto, setLoginUserPhoto] = useState('')
+  const [serchListDisplay,setSearchListDisplay] = useState("d-none")
+  const [searchQuery,setSearchQuery] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,8 +60,18 @@ const Home = () => {
   }
 
   const updateUser = async (id) => {
-    alert(id)
     navigate('/updateUser', { state: { id: id, updating: true } });
+  }
+
+  const handleSearchList = (e) =>{
+    setSearchListDisplay("d-block")
+    console.log(e.target.value)
+
+    const userNames = userData.map((item)=> {return item.firstName})
+
+    console.log("userNames:",userNames)
+
+
   }
 
   console.log("usersData:", userData)
@@ -84,13 +96,26 @@ const Home = () => {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={(e)=>handleSearchList(e)}
               />
               <Button variant="dark">Search</Button>
             </Form>
+            <div className={`searchList ${serchListDisplay}`}>
+              <ul>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+              </ul>
+            </div>
             <ul class="navbar-nav" onClick={() => { userDropDown == "d-block" ? setUserDropDown("d-none") : setUserDropDown("d-block") }}>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src="dummyUser.jpg" width="40" height="40" class="rounded-circle" />
+                  <img src={localStorage.getItem("userPhoto") ? `http://localhost:5000/${localStorage.getItem("userPhoto")}` : "dummyUser.jpg"} width="40" height="40" class="rounded-circle" />
                 </a>
                 <div class={`dropdown-menu ${userDropDown}`} style={{ right: "0" }} aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="#" onClick={handleLogout}>Log Out</a>
@@ -98,6 +123,7 @@ const Home = () => {
               </li>
             </ul>
           </Navbar.Collapse>
+
         </Container>
       </Navbar>
       <div className="container tableContainer mt-5">
