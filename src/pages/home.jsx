@@ -23,8 +23,8 @@ const Home = () => {
   const [userDropDown, setUserDropDown] = useState("d-none")
   const [refresh, setRefresh] = useState('')
   const [loginUserPhoto, setLoginUserPhoto] = useState('')
-  const [serchListDisplay,setSearchListDisplay] = useState("d-none")
-  const [searchQuery,setSearchQuery] = useState("")
+  const [serchListDisplay, setSearchListDisplay] = useState("d-none")
+  const [searchQuery, setSearchQuery] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,16 +63,24 @@ const Home = () => {
     navigate('/updateUser', { state: { id: id, updating: true } });
   }
 
-  const handleSearchList = (e) =>{
-    setSearchListDisplay("d-block")
-    console.log(e.target.value)
+  // const handleSearchList = (e) => {
+  //   console.log("e.key", e.key)
+  //   console.log(e.target.value)
+  //   const searchItem = e.key=="Backspace" ? "" : e.target.value;
+  //   console.log("searchItem",searchItem)
 
-    const userNames = userData.map((item)=> {return item.firstName})
+  //   const filteredUsers = [];
 
-    console.log("userNames:",userNames)
+  //   userData.map((item) => {
+  //     if (item.firstName.toLowerCase().includes(searchItem.toLowerCase())) {
+  //       filteredUsers.push(item)
+  //     }
+  //   })
 
+  //   console.log("filteredUsers", filteredUsers)
 
-  }
+  //   // setUserData(filteredUsers)
+  // }
 
   console.log("usersData:", userData)
   return (
@@ -91,16 +99,19 @@ const Home = () => {
             <Nav.Link href="#action2">Link</Nav.Link> */}
             </Nav>
             <Form className="d-flex">
-              <Form.Control
+              {/* <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
-                onChange={(e)=>handleSearchList(e)}
-              />
-              <Button variant="dark">Search</Button>
+                //onChange={(e)=>handleSearchList(e)}
+                onKeyDown={(e) => handleSearchList(e)}
+
+
+              /> */}
+              {/* <Button variant="dark">Search</Button> */}
             </Form>
-            <div className={`searchList ${serchListDisplay}`}>
+            {/* <div className={`searchList ${serchListDisplay}`}>
               <ul>
                 <li>sdf</li>
                 <li>sdf</li>
@@ -111,7 +122,7 @@ const Home = () => {
                 <li>sdf</li>
                 <li>sdf</li>
               </ul>
-            </div>
+            </div> */}
             <ul class="navbar-nav" onClick={() => { userDropDown == "d-block" ? setUserDropDown("d-none") : setUserDropDown("d-block") }}>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
