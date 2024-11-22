@@ -1,8 +1,8 @@
 export async function getData(route) {
 
-    const resp = await fetch(`http://localhost:5000${route}`,{credentials: 'include'})
+    const resp = await fetch(`https://crudmern-backend-y7n7.onrender.com${route}`, { credentials: 'include', method: "GET" })
     const data = await resp.json();
-
+    console.log("data", data)
     return data;
 
 }
@@ -10,7 +10,7 @@ export async function getData(route) {
 export async function postData(route, dataObject) {
 
 
-    const resp = await fetch(`http://localhost:5000${route}`, {
+    const resp = await fetch(`https://crudmern-backend-y7n7.onrender.com${route}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export async function postData(route, dataObject) {
 
 export async function updateData(route, dataObject) {
 
-    const resp = await fetch(`http://localhost:5000${route}`, {
+    const resp = await fetch(`https://crudmern-backend-y7n7.onrender.com${route}`, {
         method: "PUT",
         // headers: {
         //     "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export async function updateData(route, dataObject) {
 
 export async function deleteData(route) {
 
-    const resp = await fetch(`http://localhost:5000${route}`, {
+    const resp = await fetch(`https://crudmern-backend-y7n7.onrender.com${route}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
