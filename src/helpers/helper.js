@@ -1,8 +1,8 @@
 export async function getData(route) {
 
-    const resp = await fetch(`https://crudmern-backend-y7n7.onrender.com${route}`, { credentials: 'include', method: "GET" })
+    const resp = await fetch(`https://crudmern-backend-y7n7.onrender.com${route}`,{credentials: 'include', method: "get"});
     const data = await resp.json();
-    console.log("data", data)
+
     return data;
 
 }

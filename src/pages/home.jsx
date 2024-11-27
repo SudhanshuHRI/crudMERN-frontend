@@ -126,7 +126,7 @@ const Home = () => {
             <ul class="navbar-nav" onClick={() => { userDropDown == "d-block" ? setUserDropDown("d-none") : setUserDropDown("d-block") }}>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src={localStorage.getItem("userPhoto") ? `http://localhost:5000/${localStorage.getItem("userPhoto")}` : "dummyUser.jpg"} width="40" height="40" class="rounded-circle" />
+                  <img src={localStorage.getItem("userPhoto") ? `https://crudmern-backend-y7n7.onrender.com/${localStorage.getItem("userPhoto")}` : "dummyUser.jpg"} width="40" height="40" class="rounded-circle" />
                 </a>
                 <div class={`dropdown-menu ${userDropDown}`} style={{ right: "0" }} aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="#" onClick={handleLogout}>Log Out</a>
@@ -166,7 +166,7 @@ const Home = () => {
                     <td>{item.email ? item.email : "-"}</td>
                     <td>{item.phone ? item.phone : "-"}</td>
                     <td>{item.city ? item.city : "-"}</td>
-                    <td><img src={item.photo.startsWith("u") ? `http://localhost:5000/${item.photo}` : item.photo || "dummyUser.jpg"} height={70} width={70} alt='dummyUser' className='userImg' /></td>
+                    <td><img src={item.photo.startsWith("u") ? `https://crudmern-backend-y7n7.onrender.com/${item.photo}` : item.photo || "dummyUser.jpg"} height={70} width={70} alt='dummyUser' className='userImg' /></td>
                     <td className='d-flex justify-content-evenly'>
                       <button className='btn btn-warning buttonS' onClick={() => updateUser(item._id)}><FaEdit /></button>
                       <button className='btn btn-danger buttonS' onClick={() => deleteUser(item._id)}><FaTrashAlt /></button>
